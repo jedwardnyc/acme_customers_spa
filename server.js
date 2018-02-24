@@ -5,9 +5,11 @@ const path = require('path');
 const { Customer}  = db.models
 
 app.use('/', express.static(path.join(__dirname)));
+app.use('/vendor', express.static('node_modules'))
+
 app.use(require('body-parser').json());
-app.use(require('body-parser').urlencoded({ extended:false }));
-app.use(require('method-override')('_method'))
+app.use(require('body-parser').urlencoded());
+
 
 app.get('/', (req,res,next)=>{
   res.sendFile('index.html');
@@ -22,15 +24,13 @@ app.get('/api/customers', (req,res,next)=>{
 app.post('/api/customers', (req,res,next)=>{
   Customer.create(req.body)
     .then((customer)=> res.json(customer))
-    res.redirect('/')
     .catch(next)
 })
 
 app.delete('/api/customers/:id', (req,res,next)=>{
   Customer.findById(req.params.id)
     .then((customer)=> customer.destroy())
-    res.redirect('/')
-    .catch(next)
+    .catch(next) 
 });
 
 const port = process.env.PORT || 3000 

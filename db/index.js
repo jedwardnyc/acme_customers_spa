@@ -2,7 +2,7 @@ const conn = require('./conn');
 const Customer = require('./Customer');
 
 const sync = ()=>{
-  return conn.sync();
+  return conn.sync({ force:true });
 };
 
 const seed = ()=>{
