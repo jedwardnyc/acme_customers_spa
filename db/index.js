@@ -7,9 +7,9 @@ const sync = ()=>{
 
 const seed = ()=>{
   return Promise.all([
-    Customer.create({email:'jacob@hotmail.com'}),
-    Customer.create({email:'john@hotmail.com'}),
-    Customer.create({email:'test@hotmail.com'})
+    Customer.create({name: 'Jacob', email:'jacob@hotmail.com'}),
+    Customer.create({name: 'John', email:'john@sbcglobal.net'}),
+    Customer.create({name: 'Test', email:'test@aol.com'})
   ])
 }
 

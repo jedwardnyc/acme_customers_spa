@@ -2,9 +2,5 @@
   background-color: #4285F4;
   color: white;
   transition: 300ms;
-}
-
-#email{
-  width: 35%;
-  height: 40px;
+  cursor: pointer;
 }

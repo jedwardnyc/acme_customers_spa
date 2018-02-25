@@ -10,7 +10,8 @@ const Customer = conn.define('customer', {
       isEmail: true,
       notEmpty: true
     }
-  }
+  },
+  name: Sequelize.STRING
 });
 
 module.exports = Customer
