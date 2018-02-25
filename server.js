@@ -12,7 +12,8 @@ app.use(require('body-parser').urlencoded());
 
 
 app.get('/', (req,res,next)=>{
-  res.sendFile('index.html');
+  res.sendFile('index.html')
+  .catch(next)
 });
 
 app.get('/api/customers', (req,res,next)=>{
@@ -23,15 +24,20 @@ app.get('/api/customers', (req,res,next)=>{
 
 app.post('/api/customers', (req,res,next)=>{
   Customer.create(req.body)
-    .then((customer)=> res.json(customer))
-    .catch(next)
+    .then((customer)=> res.send(customer))
+    .catch(next(err))
 })
 
 app.delete('/api/customers/:id', (req,res,next)=>{
   Customer.findById(req.params.id)
     .then((customer)=> customer.destroy())
-    .catch(next) 
+    .catch(next(err)) 
 });
+
+app.use((err, req, res, next) => {
+
+  next()
+})
 
 const port = process.env.PORT || 3000 
 app.listen(port, ()=> console.log(`listening closely on port ${port}`));

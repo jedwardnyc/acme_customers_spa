@@ -5,9 +5,10 @@ const createBtn = document.getElementById('createButton');
 const errorMsg = document.getElementById('message')
 
 fetch('/api/customers')
+  .then( (res) => handleError(res))
   .then(result=> result.json())
   .then((customers)=>{
-    customers.forEach( customer => createCustomer(customer));
+    customers.forEach( customer => createCustomer(customer))
   });
 
 createBtn.addEventListener('click', (e) => {
@@ -16,9 +17,11 @@ createBtn.addEventListener('click', (e) => {
     method: 'post',
     body: JSON.stringify({email: email.value, name: name.value})
   })
-  .then( result => result.json())
-  .then( customer => createCustomer(customer))
-  email.value = name.value = '';
+  .then( (res) => handleError(res))
+  .then( (result) => result.json())
+  .then( (customer) => createCustomer(customer))
+  .catch( err => errorHandler(err) )
+  email.value = name.value = ''
 })
 
 //adds enterkey functionality for submission
@@ -34,7 +37,7 @@ deleteCust = (customer) =>{
     headers: {'Content-Type': 'application/json'},
     method: 'delete',
   })
-  .catch(err => errorMsg.innerText(err))
+  
 }
 
 createCustomer = (customer)=>{
@@ -47,4 +50,23 @@ createCustomer = (customer)=>{
     newCust.remove();
   })
   custList.append(newCust)
+}
+
+handleError = (res)=>{
+  if(!res.ok){
+    return res.json()
+      .then( res => {
+        errorHandler(res)
+        throw Error(res)
+      })
+  }
+ return res
+}
+
+errorHandler = (err)=>{
+  const errExit = document.createElement('a');
+  errorMsg.innerHTML = '<a href="#" class="close" data-dismiss="alert">'
+  errorMsg.innerHTML = '<strong>Please enter a valid email (Hint: it must be unique)</strong>'
+  errorMsg.append(errExit)
+  errorMsg.setAttribute('class', 'alert alert-danger alert-dismissable')
 }

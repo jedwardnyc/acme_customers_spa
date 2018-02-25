@@ -3,7 +3,6 @@ const conn = require('./conn')
 
 const Customer = conn.define('customer', {
   email: {
-    allowNull: false,
     type: Sequelize.STRING,
     unique: true,
     validate:{
@@ -11,7 +10,13 @@ const Customer = conn.define('customer', {
       notEmpty: true
     }
   },
-  name: Sequelize.STRING
+  name: {
+    allowNull: false,
+    type: Sequelize.STRING,
+    validate:{
+      notEmpty: true
+    }
+  }
 });
 
 module.exports = Customer
