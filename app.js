@@ -5,7 +5,7 @@ const createBtn = document.getElementById('createButton');
 const errorMsg = document.getElementById('message')
 
 fetch('/api/customers')
-  .then( (res) => handleError(res))
+  // .then( (res) => handleError(res))
   .then(result=> result.json())
   .then((customers)=>{
     customers.forEach( customer => createCustomer(customer))
@@ -17,7 +17,7 @@ createBtn.addEventListener('click', (e) => {
     method: 'post',
     body: JSON.stringify({email: email.value, name: name.value})
   })
-  .then( (res) => handleError(res))
+  // .then( (res) => handleError(res))
   .then( (result) => result.json())
   .then( (customer) => createCustomer(customer))
   .catch( err => errorHandler(err) )
@@ -52,16 +52,16 @@ createCustomer = (customer)=>{
   custList.append(newCust)
 }
 
-handleError = (res)=>{
-  if(!res.ok){
-    return res.json()
-      .then( res => {
-        errorHandler(res)
-        throw Error(res)
-      })
-  }
- return res
-}
+// handleError = (res)=>{
+//   if(!res.ok){
+//     return res.json()
+//       .then( res => {
+//         errorHandler(res)
+//         throw Error(res)
+//       })
+//   }
+//  return res
+// }
 
 errorHandler = (err)=>{
   const errExit = document.createElement('a');

@@ -25,19 +25,16 @@ app.get('/api/customers', (req,res,next)=>{
 app.post('/api/customers', (req,res,next)=>{
   Customer.create(req.body)
     .then((customer)=> res.send(customer))
-    .catch(next(err))
+    .catch(next)
 })
 
 app.delete('/api/customers/:id', (req,res,next)=>{
   Customer.findById(req.params.id)
     .then((customer)=> customer.destroy())
-    .catch(next(err)) 
+    .catch(next) 
 });
 
-app.use((err, req, res, next) => {
 
-  next()
-})
 
 const port = process.env.PORT || 3000 
 app.listen(port, ()=> console.log(`listening closely on port ${port}`));
