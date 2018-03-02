@@ -10,13 +10,7 @@ const Customer = conn.define('customer', {
       notEmpty: true
     }
   },
-  name: {
-    allowNull: false,
-    type: Sequelize.STRING,
-    validate:{
-      notEmpty: true
-    }
-  }
+  name: Sequelize.STRING
 });
 
 module.exports = Customer

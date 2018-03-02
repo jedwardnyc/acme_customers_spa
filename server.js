@@ -5,7 +5,7 @@ const path = require('path');
 const { Customer}  = db.models
 
 app.use('/', express.static(path.join(__dirname)));
-app.use('/vendor', express.static('node_modules'))
+app.use('/vendor', express.static('node_modules'));
 
 app.use(require('body-parser').json());
 app.use(require('body-parser').urlencoded());
@@ -26,7 +26,7 @@ app.post('/api/customers', (req,res,next)=>{
   Customer.create(req.body)
     .then((customer)=> res.send(customer))
     .catch(next)
-})
+});
 
 app.delete('/api/customers/:id', (req,res,next)=>{
   Customer.findById(req.params.id)

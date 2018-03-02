@@ -1,3 +1,5 @@
+/* use strict */
+
 const conn = require('./conn');
 const Customer = require('./Customer');
 
